@@ -41,18 +41,4 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         )}
       </div>
 
-      {project.techStack && project.techStack.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-slate-800/60">
-          {project.techStack.map((tech: string, idx: number) => (
-            <span
-              key={idx}
-              className="text-[10px] font-mono bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+      {project
