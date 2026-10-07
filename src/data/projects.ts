@@ -44,7 +44,7 @@ export const historyProjects: Project[] = [
   },
   {
   id: 'canton-validator', 
-  name: 'Canton Network',
+  title: 'Canton Network',
   category: 'Node Validator',
   description: 'Operating and maintaining a high-availability node validator on the Canton Network, ensuring network consensus, security, and uptime.',
   tags: ['Validator', 'Node Operator', 'Canton Network', 'Infrastructure'],
