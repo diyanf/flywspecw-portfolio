@@ -10,27 +10,57 @@ export interface Project {
 
 export const historyProjects: Project[] = [
   {
-    id: 'proj-1',
-    title: 'Web3 Ecosystem Operations',
-    role: 'Community & Operations',
-    period: '2023 - Present',
-    description: 'Managing testnet participation, validating node performance, and maintaining ecosystem tasks.',
-    achievements: [
-      'Executed multi-network node validation',
-      'Tracked daily ecosystem interactions and faucets'
-    ],
-    techStack: ['Web3', 'Node Validation', 'Testnet']
+    id: 'sui',
+    title: 'Sui Network Early Presale',
+    role: 'Mainnet & Presale',
+    period: '2023',
+    description: 'Early participant in the Sui Network ecosystem presale and community recognition program.',
+    achievements: ['Community Recognition Program', 'Early Ecosystem Backer'],
+    techStack: ['Presale', 'Community', 'L1 Ecosystem']
   },
   {
-    id: 'proj-2',
-    title: 'Interactive Client Tools',
-    role: 'Frontend Developer',
+    id: 'aptos',
+    title: 'Aptos Ecosystem Early Participant',
+    role: 'Testnet & Node',
+    period: '2022 - 2023',
+    description: 'Early participant and testnet node/interaction contributor within the Aptos L1 ecosystem.',
+    achievements: ['Testnet Node Validator', 'Ecosystem Contributor'],
+    techStack: ['Aptos', 'Testnet Node', 'L1']
+  },
+  {
+    id: 'berachain',
+    title: 'Berachain Ecosystem & Testnet',
+    role: 'Testnet Explorer',
     period: '2024',
-    description: 'Built client-side browser tools for progress tracking without backend dependency.',
-    achievements: [
-      'Implemented LocalStorage persistence',
-      'Created JSON backup import/export features'
-    ],
-    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS']
+    description: 'Active contributor testing dApps, DEX swaps, and liquidity pools across the Berachain testnet phases.',
+    achievements: ['dApp & DEX Swap Testing', 'Liquidity Provisioning'],
+    techStack: ['Berachain', 'Testnet', 'DeFi']
+  },
+  {
+    id: 'monad',
+    title: 'Monad Testnet Early Explorer',
+    role: 'Testnet Explorer',
+    period: '2024',
+    description: 'Executing high-frequency contract interactions and testing ecosystem tools on Monad testnet.',
+    achievements: ['Smart Contract Interactions', 'Ecosystem Tooling'],
+    techStack: ['Monad', 'EVM', 'Testnet']
+  },
+  {
+    id: 'canto',
+    title: 'Canto Network',
+    role: 'Mainnet Interaction',
+    period: '2023',
+    description: 'Active participant in Canto L1 ecosystem, interacting with Free Public Infrastructure (FPI) DeFi primitives.',
+    achievements: ['FPI DeFi Interaction', 'Liquidity Pools'],
+    techStack: ['Canto', 'DeFi', 'FPI']
+  },
+  {
+    id: 'canton',
+    title: 'Canton Network',
+    role: 'Node Validator',
+    period: '2024 - Present',
+    description: 'Operating and maintaining a high-availability node validator on the Canton Network, ensuring network consensus, security, and uptime.',
+    achievements: ['High Availability Maintenance', 'Consensus Validation'],
+    techStack: ['Node Validator', 'Consensus', 'Infrastructure']
   }
 ];
