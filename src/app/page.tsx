@@ -1,9 +1,9 @@
-import Header from '@/components/Header';
-import BioSection from '@/components/BioSection';
-import ProjectCard from '@/components/ProjectCard';
-import CustomProjectCard from '@/components/CustomProjectCard';
-import { historyProjects } from '@/data/projects';
-import { customProjects } from '@/data/customProjects';
+import Header from '../components/Header';
+import BioSection from '../components/BioSection';
+import ProjectCard from '../components/ProjectCard';
+import CustomProjectCard from '../components/CustomProjectCard';
+import { historyProjects } from '../data/projects';
+import { customProjects } from '../data/customProjects';
 
 export default function Home() {
   return (
@@ -27,8 +27,8 @@ export default function Home() {
 
         <section className="space-y-6">
           <div className="border-b border-slate-800 pb-4">
-            <h2 className="text-2xl font-bold text-amber-300">Personal & In-Development Projects</h2>
-            <p className="text-slate-400 text-sm">Custom tools and concepts currently being built.</p>
+            <h2 className="text-2xl font-bold text-amber-300">Personal & Interactive Tools</h2>
+            <p className="text-slate-400 text-sm">Custom Web3 utilities and active browser tools.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {customProjects.map((item) => (
