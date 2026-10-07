@@ -1,7 +1,7 @@
 export interface Project {
   id: string;
   title: string;
-  category: 'Testnet' | 'Presale' | 'Ecosystem' | 'Mainnet';
+  category: 'Testnet' | 'Presale' | 'Ecosystem' | 'Mainnet' | 'Node Validator';
   description: string;
   tags: string[];
 }
@@ -38,7 +38,7 @@ export const historyProjects: Project[] = [
   {
     id: 'canto-ecosystem',
     title: 'Canto Network',
-    category: 'Tesnet',
+    category: 'Testnet',
     description: 'Active participant in Canto L1 ecosystem, interacting with Free Public Infrastructure (FPI) DeFi primitives.',
     tags: ['Canto', 'Cosmos EVM', 'DeFi'],
   },
