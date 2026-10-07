@@ -1,9 +1,9 @@
 export interface Project {
   id: string;
   title: string;
-  role: string;
+  role?: string;
   description: string;
-  techStack: string[];
+  techStack?: string[];
 }
 
 export const historyProjects: Project[] = [
