@@ -7,7 +7,7 @@ import { customProjects } from '@/data/customProjects';
 
 export default function Home() {
   return (
-    <div className="bg-slate-950 text-slate-100 min-h-screen">
+    <div className="min-h-screen">
       <Header />
 
       <main className="max-w-4xl w-full mx-auto px-6 py-10 space-y-16">
@@ -30,7 +30,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-amber-300">Personal & In-Development Projects</h2>
             <p className="text-slate-400 text-sm">Custom tools and concepts currently being built.</p>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {customProjects.map((item) => (
               <CustomProjectCard key={item.id} project={item} />
             ))}
