@@ -7,7 +7,7 @@ export interface TaskItem {
   id: string;
   projectName: string;
   chain: string;
-  status: string;
+  type: string;
   sourceLink: string;
   time: string;
 }
@@ -16,11 +16,11 @@ export default function TaskTrackerPage() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [projectName, setProjectName] = useState('');
   const [chain, setChain] = useState('');
-  const [status, setStatus] = useState('Testnet');
+  const [type, setType] = useState('Testnet');
   const [sourceLink, setSourceLink] = useState('');
   const [time, setTime] = useState('');
 
-  // Load data dari LocalStorage saat pertama kali dibuka
+  // Load data dari LocalStorage
   useEffect(() => {
     const saved = localStorage.getItem('task_tracker_data');
     if (saved) {
@@ -32,7 +32,7 @@ export default function TaskTrackerPage() {
     }
   }, []);
 
-  // Simpan data ke LocalStorage setiap kali state tasks berubah
+  // Simpan data ke LocalStorage
   useEffect(() => {
     localStorage.setItem('task_tracker_data', JSON.stringify(tasks));
   }, [tasks]);
@@ -46,7 +46,7 @@ export default function TaskTrackerPage() {
       id: Date.now().toString(),
       projectName,
       chain: chain || '-',
-      status: status || 'Testnet',
+      type: type || 'Testnet',
       sourceLink: sourceLink || '#',
       time: time || new Date().toISOString().slice(0, 10),
     };
@@ -56,7 +56,7 @@ export default function TaskTrackerPage() {
     // Reset Form Input
     setProjectName('');
     setChain('');
-    setStatus('Testnet');
+    setType('Testnet');
     setSourceLink('');
     setTime('');
   };
@@ -144,15 +144,17 @@ export default function TaskTrackerPage() {
             className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-400"
           />
           <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-400"
           >
             <option value="Testnet">Testnet</option>
             <option value="Mainnet">Mainnet</option>
             <option value="Presale">Presale</option>
             <option value="Node Validator">Node Validator</option>
-            <option value="Completed">Completed</option>
+            <option value="Waitlist">Waitlist</option>
+            <option value="Airdrop">Airdrop</option>
+            <option value="Other">Other</option>
           </select>
           <input
             type="text"
@@ -186,7 +188,7 @@ export default function TaskTrackerPage() {
             <tr className="border-b border-slate-800 bg-slate-900/80 text-slate-400 text-xs">
               <th className="p-4 font-semibold">Project Name</th>
               <th className="p-4 font-semibold">Chain</th>
-              <th className="p-4 font-semibold">Status</th>
+              <th className="p-4 font-semibold">Type</th>
               <th className="p-4 font-semibold">Source Link</th>
               <th className="p-4 font-semibold">Time</th>
               <th className="p-4 font-semibold text-right">Action</th>
@@ -206,7 +208,7 @@ export default function TaskTrackerPage() {
                   <td className="p-4 text-slate-300">{task.chain}</td>
                   <td className="p-4">
                     <span className="inline-block text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded border border-amber-400/20">
-                      {task.status}
+                      {task.type}
                     </span>
                   </td>
                   <td className="p-4">
@@ -234,7 +236,7 @@ export default function TaskTrackerPage() {
                   </td>
                 </tr>
               ))
-            ) text-slate-500}
+            )}
           </tbody>
         </table>
       </div>
