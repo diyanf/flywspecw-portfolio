@@ -1,15 +1,15 @@
 export interface Project {
   id: string;
   title: string;
-  role: string;
-  period: string;
+  role?: string;
+  period?: string;
   description: string;
-  achievements: string[];
-  techStack: string[];
+  achievements?: string[];
+  techStack?: string[];
 }
 
 interface ProjectCardProps {
-  project: Project;
+  project: any;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
@@ -19,11 +19,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-lg font-bold text-slate-100">{project.title}</h3>
-            <p className="text-xs text-amber-400 font-medium">{project.role}</p>
+            {project.role && <p className="text-xs text-amber-400 font-medium">{project.role}</p>}
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-950 px-2.5 py-1 rounded-full border border-slate-800">
-            {project.period}
-          </span>
+          {project.period && (
+            <span className="text-xs font-mono text-slate-500 bg-slate-950 px-2.5 py-1 rounded-full border border-slate-800">
+              {project.period}
+            </span>
+          )}
         </div>
 
         <p className="text-xs text-slate-400 leading-relaxed">
@@ -32,23 +34,25 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         {project.achievements && project.achievements.length > 0 && (
           <ul className="space-y-1 list-disc list-inside text-xs text-slate-300">
-            {project.achievements.map((item, idx) => (
+            {project.achievements.map((item: string, idx: number) => (
               <li key={idx}>{item}</li>
             ))}
           </ul>
         )}
       </div>
 
-      <div className="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-slate-800/60">
-        {project.techStack.map((tech, idx) => (
-          <span
-            key={idx}
-            className="text-[10px] font-mono bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
+      {project.techStack && project.techStack.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mt-6 pt-4 border-t border-slate-800/60">
+          {project.techStack.map((tech: string, idx: number) => (
+            <span
+              key={idx}
+              className="text-[10px] font-mono bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
