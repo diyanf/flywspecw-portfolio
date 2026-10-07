@@ -9,11 +9,15 @@ export interface CustomProject {
 
 export const customProjects: CustomProject[] = [
   {
-    id: 'cp-1',
-    title: 'Crypto Tooling & Automation Script',
-    status: 'In Development',
-    description: 'Custom utility script to automate testnet interactions, track multiple wallet activities, and monitor gas fees across EVM and Move chains.',
-    featuresPlanned: ['Multi-Chain Wallet Tracker', 'Gas Fee Alerting', 'Automated Daily Interactions'],
-    tags: ['Python', 'Automation', 'Crypto Tool', 'EVM / Move'],
-  }
+  id: 'cp-1',
+  title: 'Real-Time Token Launch Alert',
+  status: 'Planned',
+  description: 'A lightweight scanner tracking new liquidity pools, token deployments, and DEX pairs across non-EVM chains.',
+  featuresPlanned: [
+    'New Pool & Liquidity Detector',
+    'Basic Contract / LP Lock Safety Verification',
+    'Instant Alert Notifications'
+  ],
+  tags: ['Python', 'Solana Web3', 'Sui SDK', 'Telegram Bot API'],
+}
 ];
