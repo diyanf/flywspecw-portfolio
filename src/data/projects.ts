@@ -1,59 +1,52 @@
 export interface Project {
   id: string;
   title: string;
-  category: 'Testnet' | 'Presale' | 'Ecosystem' | 'Mainnet' | 'Node Validator';
+  role: string;
   description: string;
-  tags: string[];
+  techStack: string[];
 }
 
 export const historyProjects: Project[] = [
   {
-    id: 'sui-presale',
+    id: 'sui',
     title: 'Sui Network Early Presale',
-    category: 'Presale',
+    role: 'Mainnet & Presale',
     description: 'Early participant in the Sui Network ecosystem presale and community recognition program.',
-    tags: ['Sui', 'Move Language', 'Presale'],
+    techStack: ['Presale', 'Community', 'L1 Ecosystem']
   },
   {
-    id: 'aptos-early',
+    id: 'aptos',
     title: 'Aptos Ecosystem Early Participant',
-    category: 'Ecosystem',
+    role: 'Testnet & Node',
     description: 'Early participant and testnet node/interaction contributor within the Aptos L1 ecosystem.',
-    tags: ['Aptos', 'Move EVM', 'Mainnet'],
+    techStack: ['Aptos', 'Testnet Node', 'L1']
   },
   {
-    id: 'berachain-testnet',
+    id: 'berachain',
     title: 'Berachain Ecosystem & Testnet',
-    category: 'Testnet',
+    role: 'Testnet Explorer',
     description: 'Active contributor testing dApps, DEX swaps, and liquidity pools across the Berachain testnet phases.',
-    tags: ['Berachain', 'Proof of Liquidity', 'EVM'],
+    techStack: ['Berachain', 'Testnet', 'DeFi']
   },
   {
-    id: 'monad-testnet',
+    id: 'monad',
     title: 'Monad Testnet Early Explorer',
-    category: 'Testnet',
+    role: 'Testnet Explorer',
     description: 'Executing high-frequency contract interactions and testing ecosystem tools on Monad testnet.',
-    tags: ['Monad', 'High Throughput EVM', 'Testnet'],
+    techStack: ['Monad', 'EVM', 'Testnet']
   },
   {
-    id: 'canto-ecosystem',
+    id: 'canto',
     title: 'Canto Network',
-    category: 'Testnet',
+    role: 'Mainnet Interaction',
     description: 'Active participant in Canto L1 ecosystem, interacting with Free Public Infrastructure (FPI) DeFi primitives.',
-    tags: ['Canto', 'Cosmos EVM', 'DeFi'],
+    techStack: ['Canto', 'DeFi', 'FPI']
   },
   {
-  id: 'canton-validator', 
-  title: 'Canton Network',
-  category: 'Node Validator',
-  description: 'Operating and maintaining a high-availability node validator on the Canton Network, ensuring network consensus, security, and uptime.',
-  tags: ['Validator', 'Node Operator', 'Canton Network', 'Infrastructure'],
-},
-  {
-    id: 'solana-ecosystem',
-    title: 'Active Solana Ecosystem Contributor',
-    category: 'Ecosystem',
-    description: 'Active user across Solana DeFi protocols, NFT marketplaces, and high-speed dApp interactions.',
-    tags: ['Solana', 'SPL Tokens', 'High Speed L1'],
-  },
+    id: 'canton',
+    title: 'Canton Network',
+    role: 'Node Validator',
+    description: 'Operating and maintaining a high-availability node validator on the Canton Network, ensuring network consensus, security, and uptime.',
+    techStack: ['Node Validator', 'Consensus', 'Infrastructure']
+  }
 ];
