@@ -46,11 +46,8 @@ export const historyProjects: Project[] = [
   id: 'canton-validator', 
   name: 'Canton Network',
   category: 'Node Validator',
-  role: 'Validator Operator',
-  period: '2026 - Present', 
   description: 'Operating and maintaining a high-availability node validator on the Canton Network, ensuring network consensus, security, and uptime.',
   tags: ['Validator', 'Node Operator', 'Canton Network', 'Infrastructure'],
-  link: 'https://canton.network', 
 },
   {
     id: 'solana-ecosystem',
