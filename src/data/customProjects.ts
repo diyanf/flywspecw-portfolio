@@ -1,23 +1,25 @@
 export interface CustomProject {
   id: string;
   title: string;
-  status: 'In Development' | 'Concept' | 'Planned';
+  status: 'In Development' | 'Concept' | 'Planned' | 'Live Tool';
   description: string;
   featuresPlanned: string[];
   tags: string[];
+  link?: string; // Properti link bersifat opsional
 }
 
 export const customProjects: CustomProject[] = [
   {
-  id: 'cp-1',
-  title: 'Real-Time Token Launch Alert',
-  status: 'Planned',
-  description: 'A lightweight scanner tracking new liquidity pools, token deployments, and DEX pairs across non-EVM chains.',
-  featuresPlanned: [
-    'New Pool & Liquidity Detector',
-    'Basic Contract / LP Lock Safety Verification',
-    'Instant Alert Notifications'
-  ],
-  tags: ['Python', 'Solana Web3', 'Sui SDK', 'Telegram Bot API'],
-}
+    id: 'cp-1',
+    title: 'Airdrop Task & Progress Tracker',
+    status: 'Live Tool',
+    description: 'Interactive web application to organize, track, and export your daily ecosystem & testnet task progress directly in your browser.',
+    featuresPlanned: [
+      'Custom Task Creation & Deletion',
+      'LocalStorage Auto-Persistence',
+      'JSON Backup Export & Import'
+    ],
+    tags: ['Next.js', 'React', 'LocalStorage', 'Web3 Utility'],
+    link: '/tools/task-tracker' // Menghubungkan ke rute halaman tool
+  }
 ];
