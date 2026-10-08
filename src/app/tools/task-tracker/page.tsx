@@ -9,16 +9,24 @@ export interface TaskItem {
   chain: string;
   type: string;
   sourceLink: string;
+  status: string;
   time: string;
 }
 
 export default function TaskTrackerPage() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
+  
+  // Form input state
   const [projectName, setProjectName] = useState('');
   const [chain, setChain] = useState('');
   const [type, setType] = useState('Testnet');
   const [sourceLink, setSourceLink] = useState('');
+  const [status, setStatus] = useState('Ongoing');
   const [time, setTime] = useState('');
+
+  // Edit state
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<TaskItem | null>(null);
 
   // Load data dari LocalStorage
   useEffect(() => {
@@ -48,6 +56,7 @@ export default function TaskTrackerPage() {
       chain: chain || '-',
       type: type || 'Testnet',
       sourceLink: sourceLink || '#',
+      status: status || 'Ongoing',
       time: time || new Date().toISOString().slice(0, 10),
     };
 
@@ -58,12 +67,35 @@ export default function TaskTrackerPage() {
     setChain('');
     setType('Testnet');
     setSourceLink('');
+    setStatus('Ongoing');
     setTime('');
   };
 
   // Handle Hapus Task
   const handleDeleteTask = (id: string) => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
+  };
+
+  // Handle Mulai Edit Task
+  const handleStartEdit = (task: TaskItem) => {
+    setEditingId(task.id);
+    setEditForm({ ...task });
+  };
+
+  // Handle Batal Edit
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditForm(null);
+  };
+
+  // Handle Simpan Edit
+  const handleSaveEdit = (id: string) => {
+    if (!editForm) return;
+    setTasks((prev) =>
+      prev.map((item) => (item.id === id ? editForm : item))
+    );
+    setEditingId(null);
+    setEditForm(null);
   };
 
   // Handle Export ke File JSON
@@ -98,7 +130,7 @@ export default function TaskTrackerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-12 max-w-6xl mx-auto space-y-8">
+    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-12 max-w-7xl mx-auto space-y-8">
       {/* Header & Navigation */}
       <div className="flex items-center justify-between border-b border-slate-800 pb-4">
         <div>
@@ -106,7 +138,7 @@ export default function TaskTrackerPage() {
             ← Back to Portfolio
           </Link>
           <h1 className="text-2xl font-bold text-white">Task Tracker Tool</h1>
-          <p className="text-slate-400 text-xs mt-1">Manage, track, and back up your daily crypto & Web3 tasks.</p>
+          <p className="text-slate-400 text-xs mt-1">Manage, track, edit, and back up your daily crypto & Web3 tasks.</p>
         </div>
 
         {/* Action Buttons: Import & Export */}
@@ -128,7 +160,7 @@ export default function TaskTrackerPage() {
       {/* Form Input Task */}
       <form onSubmit={handleAddTask} className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 space-y-4">
         <h2 className="text-sm font-semibold text-slate-300">Add New Task</h2>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-3">
           <input
             type="text"
             placeholder="Project Name *"
@@ -164,6 +196,23 @@ export default function TaskTrackerPage() {
             onChange={(e) => setSourceLink(e.target.value)}
             className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-400"
           />
+          {/* Input Status */}
+          <input
+            type="text"
+            placeholder="Status (e.g. Ongoing, Done, GTD)"
+            list="status-options"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-400"
+          />
+          <datalist id="status-options">
+            <option value="Ongoing" />
+            <option value="Done" />
+            <option value="Pending" />
+            <option value="To-Do" />
+            <option value="GTD" />
+          </datalist>
+
           <input
             type="text"
             placeholder="Time / Date"
@@ -191,6 +240,7 @@ export default function TaskTrackerPage() {
               <th className="p-4 font-semibold">Chain</th>
               <th className="p-4 font-semibold">Type</th>
               <th className="p-4 font-semibold">Source Link</th>
+              <th className="p-4 font-semibold">Status</th>
               <th className="p-4 font-semibold">Time</th>
               <th className="p-4 font-semibold text-right">Action</th>
             </tr>
@@ -198,46 +248,140 @@ export default function TaskTrackerPage() {
           <tbody className="divide-y divide-slate-800 text-xs">
             {tasks.length === 0 ? (
               <tr>
-                <td colSpan={6} className="p-8 text-center text-slate-500">
+                <td colSpan={7} className="p-8 text-center text-slate-500">
                   No tasks recorded yet. Fill out the form above to add your first task.
                 </td>
               </tr>
             ) : (
-              tasks.map((task) => (
-                <tr key={task.id} className="hover:bg-slate-900/40 transition">
-                  <td className="p-4 font-medium text-slate-100">{task.projectName}</td>
-                  <td className="p-4 text-slate-300">{task.chain}</td>
-                  <td className="p-4">
-                    <span className="inline-block text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded border border-amber-400/20">
-                      {task.type}
-                    </span>
-                  </td>
-                  <td className="p-4">
-                    {task.sourceLink && task.sourceLink !== '#' ? (
-                      <a
-                        href={task.sourceLink.startsWith('http') ? task.sourceLink : `https://${task.sourceLink}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-amber-400 hover:underline truncate max-w-[150px] inline-block"
+              tasks.map((task) => {
+                const isEditing = editingId === task.id;
+
+                if (isEditing && editForm) {
+                  return (
+                    <tr key={task.id} className="bg-slate-800/50">
+                      <td className="p-2">
+                        <input
+                          type="text"
+                          value={editForm.projectName}
+                          onChange={(e) => setEditForm({ ...editForm, projectName: e.target.value })}
+                          className="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-xs text-white"
+                        />
+                      </td>
+                      <td className="p-2">
+                        <input
+                          type="text"
+                          value={editForm.chain}
+                          onChange={(e) => setEditForm({ ...editForm, chain: e.target.value })}
+                          className="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-xs text-white"
+                        />
+                      </td>
+                      <td className="p-2">
+                        <select
+                          value={editForm.type}
+                          onChange={(e) => setEditForm({ ...editForm, type: e.target.value })}
+                          className="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-xs text-white"
+                        >
+                          <option value="Testnet">Testnet</option>
+                          <option value="Mainnet">Mainnet</option>
+                          <option value="Presale">Presale</option>
+                          <option value="Node Validator">Node Validator</option>
+                          <option value="Waitlist">Waitlist</option>
+                          <option value="Airdrop">Airdrop</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </td>
+                      <td className="p-2">
+                        <input
+                          type="text"
+                          value={editForm.sourceLink}
+                          onChange={(e) => setEditForm({ ...editForm, sourceLink: e.target.value })}
+                          className="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-xs text-white"
+                        />
+                      </td>
+                      <td className="p-2">
+                        <input
+                          type="text"
+                          value={editForm.status}
+                          onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
+                          className="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-xs text-white"
+                        />
+                      </td>
+                      <td className="p-2">
+                        <input
+                          type="text"
+                          value={editForm.time}
+                          onChange={(e) => setEditForm({ ...editForm, time: e.target.value })}
+                          className="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-xs text-white"
+                        />
+                      </td>
+                      <td className="p-2 text-right space-x-2">
+                        <button
+                          onClick={() => handleSaveEdit(task.id)}
+                          type="button"
+                          className="bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 px-2 py-1 rounded text-xs border border-emerald-500/30 transition"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={handleCancelEdit}
+                          type="button"
+                          className="bg-slate-700 text-slate-300 hover:bg-slate-600 px-2 py-1 rounded text-xs transition"
+                        >
+                          Cancel
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                }
+
+                return (
+                  <tr key={task.id} className="hover:bg-slate-900/40 transition">
+                    <td className="p-4 font-medium text-slate-100">{task.projectName}</td>
+                    <td className="p-4 text-slate-300">{task.chain}</td>
+                    <td className="p-4">
+                      <span className="inline-block text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded border border-amber-400/20">
+                        {task.type}
+                      </span>
+                    </td>
+                    <td className="p-4">
+                      {task.sourceLink && task.sourceLink !== '#' ? (
+                        <a
+                          href={task.sourceLink.startsWith('http') ? task.sourceLink : `https://${task.sourceLink}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-amber-400 hover:underline truncate max-w-[150px] inline-block"
+                        >
+                          {task.sourceLink}
+                        </a>
+                      ) : (
+                        <span className="text-slate-500">-</span>
+                      )}
+                    </td>
+                    <td className="p-4">
+                      <span className="inline-block text-[11px] font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                        {task.status || 'Ongoing'}
+                      </span>
+                    </td>
+                    <td className="p-4 text-slate-400">{task.time}</td>
+                    <td className="p-4 text-right space-x-2">
+                      <button
+                        onClick={() => handleStartEdit(task)}
+                        type="button"
+                        className="text-sky-400 hover:text-sky-300 font-semibold text-xs px-2 py-1 rounded bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 transition"
                       >
-                        {task.sourceLink}
-                      </a>
-                    ) : (
-                      <span className="text-slate-500">-</span>
-                    )}
-                  </td>
-                  <td className="p-4 text-slate-400">{task.time}</td>
-                  <td className="p-4 text-right">
-                    <button
-                      onClick={() => handleDeleteTask(task.id)}
-                      type="button"
-                      className="text-red-400 hover:text-red-300 font-semibold text-xs px-2 py-1 rounded bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteTask(task.id)}
+                        type="button"
+                        className="text-red-400 hover:text-red-300 font-semibold text-xs px-2 py-1 rounded bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
