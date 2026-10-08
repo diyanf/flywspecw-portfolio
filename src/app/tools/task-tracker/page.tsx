@@ -117,6 +117,7 @@ export default function TaskTrackerPage() {
           </label>
           <button
             onClick={handleExport}
+            type="button"
             className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs px-3 py-2 rounded-lg border border-amber-500/30 transition"
           >
             Export JSON
@@ -229,6 +230,7 @@ export default function TaskTrackerPage() {
                   <td className="p-4 text-right">
                     <button
                       onClick={() => handleDeleteTask(task.id)}
+                      type="button"
                       className="text-red-400 hover:text-red-300 font-semibold text-xs px-2 py-1 rounded bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition"
                     >
                       Delete
